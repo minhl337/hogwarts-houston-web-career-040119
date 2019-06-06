@@ -1,8 +1,12 @@
 import piggy from '../porco.png'
 import React from 'react'
+import Sort from './Sort.js'
 
-const Nav = () => {
+class Nav extends React.Component{
+	render(){
+		
 	return (
+		
 		<div className="navWrapper">
 			<span className="headerText">Hogwarts</span>
 			<div className="TwirlyPig">
@@ -11,8 +15,9 @@ const Nav = () => {
 				</a>
 			</div>
 			<span className="normalText">A React App for County Fair Hog Fans</span>
+			<Sort sortName={this.props.sortName}/>
 		</div>
 	)
-}
+}}
 
 export default Nav
