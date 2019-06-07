@@ -10,11 +10,19 @@ class Pig extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            details: false
+            details: false,
+            hidden:true
         }
     }
 
-    
+    hides=(e)=>{
+        console.log('hiding')
+        this.props.hidePigs(e)
+        this.setState({
+            hidden:!this.state.hidden
+            
+        })
+    }
 
     showDetails = () => {
         this.setState({
@@ -24,10 +32,16 @@ class Pig extends React.Component {
 
     render() {
         let pigPic = require(`../hog-imgs/${this.props.pig.name.toLowerCase().replace(/ /g,"_")}.jpg`)
+        let hiddenDiv = "<div>"
+        
+        if(this.state.hidden){
+            
+            
         return (
+            
             <div>
                 <Card>
-                <button className="button">Hide</button>
+                <button className="button" onClick={()=>this.hides(this.props.pig.name)}>Hide</button>
                     <Image src={pigPic} />
                     <button className="button" onClick={this.showDetails}>Show Details</button>
                     <Card.Content>
@@ -54,6 +68,12 @@ class Pig extends React.Component {
             </Card> 
         </div>
         )
+        }else{
+            return(
+                <div>
+                </div>
+                )
+        }
     }
 
 }

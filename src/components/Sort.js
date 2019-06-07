@@ -6,17 +6,16 @@ export default class Sort extends React.Component {
         super(props)
     }
 
-    handleName=()=>{
-        this.props.sortName()
+    handleName=(e)=>{
+        this.props.sortName(e.target.innerText)
     }
 
     render() {
-        console.log(this.props)
         return (
             <div>
-                <Select placeholder='Sort By' options={[
+                <Select placeholder='Sort By' onChange={(e)=>this.handleName(e)} options={[
                     { key: 'Name', text: 'Name', value: 'Name' },
-                    { key: 'Weight', text: 'Weight', value: 'Weight' },
+                    { key: 'Weight', text: 'Weight(ACS)', value: 'Weight' },
                     { key: 'Greased', text: 'Greased', value: 'Greased' },
                 ]} />
             </div>

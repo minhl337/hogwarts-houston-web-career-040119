@@ -20,14 +20,12 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            nameSort: false,
-            weightSort: false,
-            greasedSort: false,
-            hogss:hogs
+            hogss:hogs,
+            hiddenHogs:[]
         }
     }
-
-    sortName = () => {
+        
+    sortHogsName=()=>{
         let sortedHogs=this.state.hogss.sort(function(a, b) {
             var keyA = (a.name),
                 keyB = (b.name);
@@ -40,22 +38,69 @@ class App extends Component {
         this.setState({
             hogss:sortedHogs
         })
+    }    
+    
+    hiddenPigs=(e)=>{
+        console.log(e)
+        this.state.hiddenHogs.push(e)
+        }
+
+    
+    sortHogsWeight=()=>{
+        let sortedHogs=this.state.hogss.sort(function(a, b) {
+            var keyA = (a['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water']),
+                keyB = (b['weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water']);
+            // Compare the 2 dates
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
+        
+        this.setState({
+            hogss:sortedHogs
+        })
+    }   
+    
+    isGreased=()=>{
+        let sortedHogs=this.state.hogss.filter(x=>x.greased)
+        this.setState({
+            hogss:sortedHogs
+        })
+    }
+        
+    sortName = (e) => {
+        if(e=='Name'){
+            this.sortHogsName()
+        }else if(e==="Weight(ACS)"){
+            this.sortHogsWeight()
+        }else if(e==="Greased"){
+            this.isGreased()
+        }
+        
     }
 
+    showDead=()=>{
+        console.log(this.state.hiddenHogs)
+        
+        this.state.hiddenHogs.map(x=>{
+            console.log(x)
+        })
+    }
+    
     render() {
 
         return (
 
             <div className="App">
-                
+                <button onClick={this.showDead}>SHOW DEAD</button>
                 <Nav sortName={this.sortName}/>
                 
-          
+                
                 <div className="ui link cards">
                     
                     {
                         this.state.hogss.map(pig=>{
-                            return <Pig pig={pig}/>
+                            return <Pig pig={pig} hidePigs={this.hiddenPigs} noShow={this.state.hiddenHogs}/>
                         })
                     }
 
